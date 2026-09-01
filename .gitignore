@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.npm-cache/
+.tmp-legend-read/
+audit-captures/
+.local-archive/
+
+# Local visual QA captures; not part of the published portfolio.
+qa-*.png
+qa-*.jpg
