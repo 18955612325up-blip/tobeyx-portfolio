@@ -1,6 +1,6 @@
-import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Component, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Center, Environment, OrbitControls, useGLTF } from "@react-three/drei";
+import { Center, Environment, Html, OrbitControls, useGLTF, useProgress } from "@react-three/drei";
 import { EffectComposer, HueSaturation, N8AO } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { ACTIVE_MODEL_URL, sceneProfile } from "./sceneProfile.js";
@@ -472,6 +472,45 @@ function IslandModel({ onExitFocus, onPlaceNode, isFocused }) {
   );
 }
 
+function SceneLoadingIndicator() {
+  const { progress, loaded, total } = useProgress();
+  const percent = total ? Math.round(progress) : 0;
+
+  return (
+    <Html center>
+      <div className="scene-loader" role="status" aria-live="polite">
+        <span className="scene-loader__spinner" aria-hidden="true" />
+        <strong>正在加载 3D 模型</strong>
+        <span>{percent}% · {loaded}/{total || "?"} 个资源</span>
+        <small>首次打开需要下载约 24 MB，请稍候</small>
+      </div>
+    </Html>
+  );
+}
+
+class SceneLoadErrorBoundary extends Component {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <Html center>
+          <div className="scene-loader scene-loader--error" role="alert">
+            <strong>3D 模型加载失败</strong>
+            <span>请刷新页面后重试</span>
+          </div>
+        </Html>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
 function DoubleClickExit({ active, onExit }) {
   const { gl } = useThree();
 
@@ -704,7 +743,6 @@ function IslandScene({ onSelect, nodes, editingNodeId, onChooseNode, onUpdateNod
       onPointerMissed={() => onSelect(focusedNode ? "节点特写中，双击模型退出特写" : "拖拽旋转模型；点击悬浮图钉进入节点特写")}
     >
       <color attach="background" args={[sceneProfile.environment.background]} />
-      <Environment files={sceneProfile.environment.hdr} environmentIntensity={sceneProfile.environment.hdrIntensity} />
       <hemisphereLight args={sceneProfile.environment.hemisphere} />
       <directionalLight
         castShadow
@@ -723,14 +761,17 @@ function IslandScene({ onSelect, nodes, editingNodeId, onChooseNode, onUpdateNod
         shadow-normalBias={sceneProfile.environment.keyLight.shadow.normalBias}
         shadow-radius={sceneProfile.environment.keyLight.shadow.radius}
       />
-      <Suspense fallback={null}>
-        <group rotation={[0, -0.34, 0]}>
-          <Center>
-            <IslandModel onExitFocus={exitFocus} onPlaceNode={editingNode ? placeNode : null} isFocused={Boolean(focusedNode)} />
-          </Center>
-        </group>
-        <StaticShadowBake />
-        {!focusedNode && nodes.map((node) => <ScenePin key={node.id} node={node} onFocus={editingNode ? onChooseNode : focusNode} />)}
+      <Suspense fallback={<SceneLoadingIndicator />}>
+        <SceneLoadErrorBoundary>
+          <Environment files={sceneProfile.environment.hdr} environmentIntensity={sceneProfile.environment.hdrIntensity} />
+          <group rotation={[0, -0.34, 0]}>
+            <Center>
+              <IslandModel onExitFocus={exitFocus} onPlaceNode={editingNode ? placeNode : null} isFocused={Boolean(focusedNode)} />
+            </Center>
+          </group>
+          <StaticShadowBake />
+          {!focusedNode && nodes.map((node) => <ScenePin key={node.id} node={node} onFocus={editingNode ? onChooseNode : focusNode} />)}
+        </SceneLoadErrorBoundary>
       </Suspense>
       <DoubleClickExit active={Boolean(focusedNode)} onExit={exitFocus} />
       <SceneCamera focusedNode={focusedNode} controlsRef={controlsRef} planMode={planMode} onTransitionChange={setTransitioning} />
