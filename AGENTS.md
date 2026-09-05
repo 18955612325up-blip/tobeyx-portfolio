@@ -57,3 +57,13 @@ When implementing from a selected generated mock, treat that image as the source
 - The portfolio's current featured project is **《浮层叠影：郑州商城国家考古遗址公园景观升级设计》**.
 - Keep the concise narrative centered on archaeological site reading, heritage protection, ecological continuity, and public experience.
 - Source imagery lives in `public/images/shangdu/`, prepared from `F:/412/资产/` for fast web delivery.
+
+## Loading and reliability (2026-09-05)
+
+- Spatial roaming must immediately show an ordinary DOM preview and honest loading status. Keep the preview visible through download, decoding, and the first rendered scene frames; never rely on a loading label inside WebGL.
+- Keep the homepage lightweight: import the 3D module on entry intent and download the model only after entry. Lazy-load below-the-fold images.
+- Decoder files must be served locally from `public/draco/`; visitors must not depend on Google-hosted decoding resources.
+- Reuse decoded model data and prepared geometry within the page session. Show recoverable errors and let visitors return to the project while preparation continues.
+- The scene implementation is now `src/IslandScene.jsx`; `src/sceneProfile.js` still owns the approved rendering profile. Preserve the existing model, materials, lighting, and camera behavior when fixing loading.
+- Calibration controls are available only in development with `?calibrate`; published scenes retain saved positions and names without exposing editing controls.
+- Browser regression scripts live in `scripts/verify-site.cjs` and `scripts/verify-slow-mobile.cjs`. Run against the production preview (default `http://localhost:4173/`); they use Playwright and Edge. Set `TEST_URL` or `PLAYWRIGHT_MODULE` when using another preview URL or the bundled runtime.
