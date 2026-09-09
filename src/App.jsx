@@ -222,7 +222,7 @@ export function App() {
 
   useEffect(() => {
     let cancelled = false;
-    document.images.forEach((image) => { image.loading = "eager"; });
+    Array.from(document.images).forEach((image) => { image.loading = "eager"; });
     const sources = [...new Set([...document.images].map((image) => image.currentSrc || image.src).filter(Boolean))];
     if (!sources.length) { setPageLoadProgress(100); setPageLoading(false); return undefined; }
     let completed = 0;
