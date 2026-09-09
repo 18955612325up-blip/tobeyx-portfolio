@@ -701,11 +701,6 @@ export function App() {
               </div>
             </section>}
             <div className="scene-actions">
-              <button type="button" onClick={copyNodePositions}>复制浮标位置</button>
-              <button type="button" onClick={importNodePositions}>导入浮标位置</button>
-              {showCalibration && !editingNodeId && !viewCalibration && <button type="button" onClick={startViewCalibration}>调整默认视角</button>}
-              {showCalibration && !editingNodeId && !viewCalibration && <button type="button" onClick={startCalibration}>调整锚点</button>}
-              <button type="button" onClick={() => setSceneStatus("拖拽旋转模型；点击悬浮图钉进入节点特写")}>重置提示</button>
               <button type="button" onClick={closeExplorer}>关闭场景</button>
             </div>
           </div>
