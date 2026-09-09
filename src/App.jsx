@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { sceneProfile } from './sceneProfile.js';
-import { RoamingViewer, warmSceneCode } from './RoamingViewer.jsx';
+import { RoamingViewer, warmSceneCode, warmSceneResources } from './RoamingViewer.jsx';
 
 const layers = {
   overview: { label: "总体鸟瞰", image: "/images/shangdu/overview.webp", alt: "郑州商城国家考古遗址公园整体鸟瞰", note: "以考古式阅读重构遗址公园，将保护、生态与公共活动编织为可步行、可停留、可感知的城市地景。" },
@@ -72,14 +72,14 @@ const planViews = {
 
 const renderOverview = {
   id: "overview",
-  kicker: "SYSTEM / 10 VIEWS",
+  kicker: "空间体验 / SYSTEM · 10 VIEWS",
   title: "从入口阈值到空中漫游的连续空间叙事",
   description: "效果图共同呈现由入口、水景、田景、儿童活动与口袋空间组成的地面体验，并通过空中栈道串联观察、停留与回望，让遗址公园形成上下交织、昼夜连续的公共游览系统。",
   tags: ["入口礼序", "立体游线", "多龄活动"],
 };
 
 const renderGallery = [
-  { id: "entrance", index: "01", kicker: "VIEW 01 / ENTRANCE", title: "入口界面与城市到达", description: "以开敞前场、框景构架和清晰的步行入口建立到达秩序，将城市街道自然引入遗址公园内部。", tags: ["入口界面", "框景", "到达秩序"], src: "/images/shangdu/render-gallery/entrance-perspective.jpg", alt: "郑州商城遗址公园入口透视效果图" },
+  { id: "entrance", index: "01", kicker: "空间体验 / VIEW 01 · ENTRANCE", title: "入口界面与城市到达", description: "以开敞前场、框景构架和清晰的步行入口建立到达秩序，将城市街道自然引入遗址公园内部。", tags: ["入口界面", "框景", "到达秩序"], src: "/images/shangdu/render-gallery/entrance-perspective.jpg", alt: "郑州商城遗址公园入口透视效果图" },
   { id: "water-wall", index: "02", kicker: "VIEW 02 / WATER WALL", title: "水幕墙形成进入遗址的感知阈值", description: "不同尺度的水幕构件沿入口展开，以声音、反射与连续界面强化进入仪式，同时为开放场地提供清凉的停留体验。", tags: ["洗礼水幕", "感知入口", "停留"], src: "/images/shangdu/render-gallery/entrance-water-wall.jpg", alt: "郑州商城遗址公园入口水幕墙效果图" },
   { id: "night", index: "03", kicker: "VIEW 03 / NIGHT WALK", title: "低照度环境中的空中慢行", description: "夜间照明集中于步道边界、节点与下层停留空间，在维持安全识别的同时保留遗址公园安静克制的夜景氛围。", tags: ["夜间慢行", "安全照明", "静谧氛围"], src: "/images/shangdu/render-gallery/skywalk-night.jpg", alt: "空中栈道夜间步行与下层休憩空间效果图" },
   { id: "children", index: "04", kicker: "VIEW 04 / PLAY", title: "嵌入游线的儿童友好活动场", description: "环形攀爬、钻爬与弹跳设施顺应地形布置，并与空中栈道保持视线联系，让儿童活动成为全龄游览的一部分。", tags: ["儿童友好", "地形游戏", "全龄共享"], src: "/images/shangdu/render-gallery/children-play.jpg", alt: "郑州商城遗址公园儿童友好活动场效果图" },
@@ -220,6 +220,10 @@ export function App() {
   const nextPlan = planViews[planOrder[1]];
   const activeLegend = planLegendSets[planOrder[0]];
   const activeRender = renderGallery.find((render) => render.id === activeRenderId) ?? renderOverview;
+
+  useEffect(() => {
+    warmSceneResources();
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -529,7 +533,7 @@ export function App() {
                 </summary>
                 <div className="plan-legend-panel">
                   <div className="legend-header">
-                    <p className="section-kicker">按需查看服务系统与编号节点</p>
+                    <p className="section-kicker">服务系统 / SERVICE SYSTEM</p>
                     <div className="legend-copy"><p>{activeLegend.note}</p></div>
                   </div>
 
@@ -573,7 +577,7 @@ export function App() {
               </div>
             </div>
             <aside className="observation-sidebar" aria-label="现状问题说明">
-              <p className="observation-kicker">现场观察 / 04 FRAMES</p>
+              <p className="observation-kicker">现状问题 / SITE OBSERVATIONS</p>
               <h3>遗址、游线与日常活动尚未形成连续体验</h3>
               <p>入口、文化展示、古城墙与日常活动各自存在，缺少将遗址感知、游览路径与公共停留组织为连续体验的空间关系。</p>
               <div className="observation-keywords"><span>遗址可读性</span><span>游线组织</span><span>活动边界</span></div>
@@ -599,7 +603,7 @@ export function App() {
               <figure className="culture-tile culture-tile--marker culture-tile--model"><img loading="lazy" decoding="async" src="/images/shangdu/culture-marker.png" alt="竖向文化构件模型" /><figcaption>转译 / 节点导向构架</figcaption></figure>
             </div>
             <aside className="culture-sidebar" aria-label="文化转译说明">
-              <p className="culture-kicker">SOURCE → ABSTRACT → SPACE</p>
+            <p className="culture-kicker">文化转译 / CULTURAL TRANSLATION</p>
               <h3>从器物和生活场景中提取可感知的空间语言</h3>
               <p>器物的体量、支撑与转角被转化为入口和停留构件；农耕人物组织田景体验；竖向构架则提示游线与节点。</p>
               <ol className="culture-actions">
@@ -635,7 +639,7 @@ export function App() {
             </div>
             <aside className="render-sidebar" aria-label="空间效果图说明" aria-live="polite">
               <div className="render-sidebar__content" key={activeRender.id}>
-                <p className="render-kicker">{activeRender.kicker}</p>
+                <p className="render-kicker">{activeRender.kicker.includes("空间体验") ? activeRender.kicker : `空间体验 / ${activeRender.kicker}`}</p>
                 <h3>{activeRender.title}</h3>
                 <p>{activeRender.description}</p>
                 <div className="render-keywords" aria-label="当前效果图关键词">{activeRender.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>

@@ -7,6 +7,9 @@ function loadSceneCode() {
   return sceneModule;
 }
 export function warmSceneCode() { loadSceneCode().catch(() => {}); }
+export function warmSceneResources() {
+  loadSceneCode().then((module) => module.prepareSceneResources()).catch(() => {});
+}
 
 class SceneBoundary extends Component {
   state = { failed: false };
