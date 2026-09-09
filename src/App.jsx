@@ -92,14 +92,14 @@ const renderGallery = [
 ];
 
 const sceneNodes = [
-  { id: "north-terrace", label: "北侧景观界面", position: [-58.0, 0.1, -64.9], color: "#a9797a" },
-  { id: "north-east-path", label: "东北游径", position: [-40.4, 0.1, -71.3], color: "#77979c" },
-  { id: "east-grove", label: "东侧林下空间", position: [-41.6, 0.1, -59.5], color: "#90936e" },
-  { id: "field-garden", label: "田景花园", position: [-48.6, -0.5, -52.1], color: "#8d7c9c" },
-  { id: "heritage-maze", label: "遗址迷宫", position: [-53.7, -0.5, -47.9], color: "#a78670" },
-  { id: "water-court", label: "水景庭院", position: [-54.7, 0.1, -43.8], color: "#739589" },
-  { id: "children-garden", label: "儿童活动花园", position: [-60.1, 0.1, -38.6], color: "#b28972" },
-  { id: "round-plaza", label: "圆形活动场", position: [-45.4, 0.1, -48.3], color: "#8c8c7a" },
+  { id: "north-terrace", label: "北侧景观界面", position: [10.75, -0.46, -41.45], color: "#a9797a" },
+  { id: "north-east-path", label: "东北游径", position: [11.72, -0.06, -38.19], color: "#77979c" },
+  { id: "east-grove", label: "东侧林下空间", position: [16.14, -0.43, -35.61], color: "#90936e" },
+  { id: "field-garden", label: "田景花园", position: [9.77, -0.37, -35.12], color: "#8d7c9c" },
+  { id: "heritage-maze", label: "遗址迷宫", position: [9.24, -0.48, -31], color: "#a78670" },
+  { id: "water-court", label: "入口", position: [3.33, -0.49, -44.15], color: "#739589" },
+  { id: "children-garden", label: "儿童活动花园", position: [11.64, -0.43, -25.47], color: "#b28972" },
+  { id: "round-plaza", label: "沿街口袋公园", position: [-1.95, -0.41, -43.85], color: "#8c8c7a" },
 ];
 
 const NODE_POSITION_STORAGE_KEY = "tobey-xiao-scene-node-positions";
