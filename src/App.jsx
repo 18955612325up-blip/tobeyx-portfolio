@@ -356,6 +356,27 @@ export function App() {
     window.localStorage.removeItem(NODE_POSITION_STORAGE_KEY);
     setSceneStatus("已恢复初始节点位置");
   };
+  const copyNodePositions = async () => {
+    const payload = JSON.stringify(nodes.map(({ id, position }) => ({ id, position })));
+    try {
+      await navigator.clipboard.writeText(payload);
+      setSceneStatus("浮标位置已复制；请在手机端选择导入位置");
+    } catch {
+      window.prompt("复制下面的浮标位置数据，再到手机端导入", payload);
+    }
+  };
+  const importNodePositions = () => {
+    const value = window.prompt("粘贴电脑端复制的浮标位置数据");
+    if (!value) return;
+    try {
+      const imported = JSON.parse(value);
+      if (!Array.isArray(imported) || imported.length !== nodes.length || imported.some((item) => !sceneNodes.some((node) => node.id === item.id) || !isVectorTriplet(item.position))) throw new Error("invalid");
+      setNodes(imported.map((item) => ({ ...nodes.find((node) => node.id === item.id), position: item.position })));
+      setSceneStatus("浮标位置已导入并保存");
+    } catch {
+      setSceneStatus("位置数据格式不正确，请重新复制");
+    }
+  };
   const updateNodeLabel = (nodeId, label) => {
     setNodes((currentNodes) => {
       const nextNodes = currentNodes.map((node) => node.id === nodeId ? { ...node, label } : node);
@@ -669,6 +690,8 @@ export function App() {
               </div>
             </section>}
             <div className="scene-actions">
+              <button type="button" onClick={copyNodePositions}>复制浮标位置</button>
+              <button type="button" onClick={importNodePositions}>导入浮标位置</button>
               {showCalibration && !editingNodeId && !viewCalibration && <button type="button" onClick={startViewCalibration}>调整默认视角</button>}
               {showCalibration && !editingNodeId && !viewCalibration && <button type="button" onClick={startCalibration}>调整锚点</button>}
               <button type="button" onClick={() => setSceneStatus("拖拽旋转模型；点击悬浮图钉进入节点特写")}>重置提示</button>
