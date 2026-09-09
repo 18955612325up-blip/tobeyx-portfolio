@@ -199,7 +199,8 @@ export function App() {
   const [activeRenderId, setActiveRenderId] = useState(null);
   const [exploring, setExploring] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
-  const showCalibration = import.meta.env.DEV && new URLSearchParams(window.location.search).has('calibrate');
+  // Keep anchor calibration available from the published scene while positions are being tuned.
+  const showCalibration = true;
   const [isClosingExplorer, setIsClosingExplorer] = useState(false);
   const [sceneStatus, setSceneStatus] = useState("拖拽旋转模型；点击悬浮图钉进入节点特写");
   const [nodes, setNodes] = useState(loadSceneNodes);
