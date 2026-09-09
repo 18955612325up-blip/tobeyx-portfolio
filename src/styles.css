@@ -325,6 +325,8 @@ footer a:hover { color:var(--ink); }
   transition:opacity .54s ease, filter .72s ease;
   will-change:opacity;
 }
+.reveal-on-scroll { opacity:0; transform:translateY(28px); transition:opacity .8s ease, transform .9s cubic-bezier(.2,.72,.18,1); }
+.reveal-on-scroll.is-revealed { opacity:1; transform:translateY(0); }
 .focus-module::before {
   content:attr(data-focus-label);
   position:absolute;
@@ -368,6 +370,7 @@ footer a:hover { color:var(--ink); }
 }
 @media (prefers-reduced-motion:reduce) {
   .focus-module { transform:none; filter:none; opacity:1; transition:none; }
+  .reveal-on-scroll,.reveal-on-scroll.is-revealed { opacity:1; transform:none; transition:none; }
   .focus-module::before { opacity:.75; transform:none; }
   .focus-module::after { animation:none; }
 }

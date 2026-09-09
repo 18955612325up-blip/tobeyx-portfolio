@@ -255,6 +255,20 @@ export function App() {
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [exploring, isClosingExplorer]);
   useEffect(() => {
+    const sections = [...document.querySelectorAll(".reveal-on-scroll")];
+    if (!sections.length) return undefined;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-revealed");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+  useEffect(() => {
     const modules = [...document.querySelectorAll("[data-focus-module]")];
     let frameId = 0;
 
@@ -421,7 +435,7 @@ export function App() {
           </aside>
         </section>
 
-        <section className="plan-study focus-module" id="process" data-focus-module aria-labelledby="plan-study-title">
+        <section className="plan-study focus-module reveal-on-scroll" id="process" data-focus-module aria-labelledby="plan-study-title">
           <header className="plan-study-header">
             <h2 id="plan-study-title">总体平面</h2><p>PLAN STUDY / SITE TRANSFORMATION</p>
           </header>
@@ -470,7 +484,7 @@ export function App() {
           </div>
         </section>
 
-        <section className="site-observations" aria-labelledby="site-observations-title">
+        <section className="site-observations reveal-on-scroll" aria-labelledby="site-observations-title">
           <header className="site-observations-header">
             <h2 id="site-observations-title">现状问题</h2><p>SITE OBSERVATIONS</p>
           </header>
@@ -506,7 +520,7 @@ export function App() {
           </div>
         </section>
 
-        <section className="cultural-translation" aria-labelledby="cultural-translation-title">
+        <section className="cultural-translation reveal-on-scroll" aria-labelledby="cultural-translation-title">
           <header className="cultural-translation-header">
             <h2 id="cultural-translation-title">文化转译</h2><p>CULTURAL TRANSLATION</p>
           </header>
@@ -536,7 +550,7 @@ export function App() {
           </div>
         </section>
 
-        <section className="render-studies" aria-labelledby="render-studies-title">
+        <section className="render-studies reveal-on-scroll" aria-labelledby="render-studies-title">
           <header className="render-studies-header">
             <h2 id="render-studies-title">空间体验</h2><p>SPATIAL EXPERIENCE / RENDER STUDIES</p>
           </header>
