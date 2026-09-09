@@ -222,6 +222,7 @@ export function App() {
 
   useEffect(() => {
     let cancelled = false;
+    document.images.forEach((image) => { image.loading = "eager"; });
     const sources = [...new Set([...document.images].map((image) => image.currentSrc || image.src).filter(Boolean))];
     if (!sources.length) { setPageLoadProgress(100); setPageLoading(false); return undefined; }
     let completed = 0;
@@ -476,10 +477,10 @@ export function App() {
             <figure className="plan-card plan-card--stacked">
               <div className={`plan-stack${isPlanCycling ? " is-cycling" : ""}`}>
                 <div className="plan-layer plan-layer--active" key={`active-${planOrder[0]}`}>
-                  <img loading="lazy" decoding="async" src={activePlan.src} width={activePlan.width} height={activePlan.height} alt={activePlan.alt} />
+                  <img loading="eager" decoding="async" src={activePlan.src} width={activePlan.width} height={activePlan.height} alt={activePlan.alt} />
                 </div>
                 {nextPlan && <button className="plan-layer plan-layer--next" key={`next-${planOrder[1]}`} type="button" onClick={cyclePlan} disabled={isPlanCycling} aria-label={`露出的${nextPlan.label}。点击切换为主图`}>
-                  <img loading="lazy" decoding="async" src={nextPlan.src} width={nextPlan.width} height={nextPlan.height} alt={nextPlan.alt} />
+                  <img loading="eager" decoding="async" src={nextPlan.src} width={nextPlan.width} height={nextPlan.height} alt={nextPlan.alt} />
                   <span><small>下一张图纸</small><strong>点击切换为主图 →</strong></span>
                 </button>}
               </div>
