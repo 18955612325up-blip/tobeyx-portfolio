@@ -357,7 +357,7 @@ export function App() {
     setSceneStatus("已恢复初始节点位置");
   };
   const copyNodePositions = async () => {
-    const payload = JSON.stringify(nodes.map(({ id, position }) => ({ id, position })));
+    const payload = JSON.stringify(nodes.map(({ id, label, position }) => ({ id, label, position })));
     try {
       await navigator.clipboard.writeText(payload);
       setSceneStatus("浮标位置已复制；请在手机端选择导入位置");
@@ -371,7 +371,8 @@ export function App() {
     try {
       const imported = JSON.parse(value);
       if (!Array.isArray(imported) || imported.length !== nodes.length || imported.some((item) => !sceneNodes.some((node) => node.id === item.id) || !isVectorTriplet(item.position))) throw new Error("invalid");
-      setNodes(imported.map((item) => ({ ...nodes.find((node) => node.id === item.id), position: item.position })));
+      setNodes(imported.map((item) => ({ ...nodes.find((node) => node.id === item.id), label: typeof item.label === "string" ? item.label : nodes.find((node) => node.id === item.id).label, position: item.position })));
+      window.localStorage.setItem(NODE_LABEL_STORAGE_KEY, JSON.stringify(Object.fromEntries(imported.map((item) => [item.id, item.label]))));
       setSceneStatus("浮标位置已导入并保存");
     } catch {
       setSceneStatus("位置数据格式不正确，请重新复制");
