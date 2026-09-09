@@ -574,7 +574,7 @@ export function App() {
         <section className="project-notes"><p className="notes-number">01</p><p>遗址保护 · 生态连通 · 公共生活</p><p className="notes-count">06</p></section>
         <footer id="about">
           <p>以考古式阅读场地，让历史遗存、生态廊道与日常公共生活在当代城市中重新相遇。</p>
-          <div className="footer-meta"><span>Landscape Architecture Student</span><span>Seeking internship opportunities</span><a href="mailto:18955612325up@gmail.com">18955612325up@gmail.com</a><span>© 2026 Tobey Xiao</span></div>
+          <div className="footer-meta"><span>Landscape Architecture Student</span><span>Seeking internship opportunities</span><a href="mailto:18955612325up@gmail.com">18955612325up@gmail.com</a><span>© 2026 Tobey Xiao</span><a className="icp-filing" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">皖ICP备2026030099号-1</a></div>
         </footer>
       </section>
 

@@ -578,6 +578,9 @@ footer { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end
 footer > p { max-width:520px; }
 .footer-meta { display:grid; gap:6px; color:#657780; font-size:11px; font-weight:500; letter-spacing:.08em; text-align:right; }
 .footer-meta a { color:#a5492d; font-weight:700; }
+.footer-meta .icp-filing { color:#52656f; font-weight:500; letter-spacing:0; line-height:1.8; }
+.footer-meta .icp-filing:hover { color:var(--ink); text-decoration:underline; }
+.footer-meta .icp-filing:focus-visible { outline:2px solid currentColor; outline-offset:4px; }
 
 @media (max-width:800px) {
   .topbar { gap:14px; flex-direction:column; }
