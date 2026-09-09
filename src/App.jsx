@@ -404,7 +404,6 @@ export function App() {
           <a className="wordmark" href="#top">TOBEY XIAO</a>
           <div className="topbar-meta">
             <p><span className="topbar-person">肖林</span><span className="topbar-role">LANDSCAPE ARCHITECTURE STUDENT</span></p>
-            <p className="topbar-project-type">课程作业</p>
           </div>
         </header>
         <div className="project-header" id="projects">
