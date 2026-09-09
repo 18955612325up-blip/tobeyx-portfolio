@@ -184,6 +184,15 @@ footer { display:flex; justify-content:space-between; gap:30px; padding:43px 0; 
   --deep:#111a22;
   --signal:#93c2cd;
 }
+.page-loader { position:fixed; z-index:100; inset:0; display:grid; place-items:center; pointer-events:none; opacity:0; visibility:hidden; transition:opacity .7s ease, visibility .7s; }
+.page-loader.is-visible { opacity:1; visibility:visible; pointer-events:auto; }
+.page-loader__backdrop { position:absolute; inset:-22px; background:rgba(226,235,237,.78); backdrop-filter:blur(18px) saturate(.78); }
+.page-loader__content { position:relative; width:min(360px,calc(100vw - 64px)); color:#243941; text-align:center; }
+.page-loader__eyebrow { margin:0 0 28px; color:#789099; font-size:9px; letter-spacing:.22em; }
+.page-loader__message { margin:0 0 18px; font-size:18px; letter-spacing:.08em; }
+.page-loader__track { height:2px; overflow:hidden; background:rgba(75,103,111,.2); }
+.page-loader__track span { display:block; height:100%; background:#4f737d; transition:width .25s ease; }
+.page-loader__percent { margin:12px 0 0; color:#789099; font-size:10px; letter-spacing:.12em; }
 
 html { background:var(--paper); }
 body {

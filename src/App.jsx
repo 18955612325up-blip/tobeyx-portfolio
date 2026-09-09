@@ -194,6 +194,8 @@ function CinematicSceneHint({ message }) {
 }
 
 export function App() {
+  const [pageLoading, setPageLoading] = useState(true);
+  const [pageLoadProgress, setPageLoadProgress] = useState(0);
   const [planOrder, setPlanOrder] = useState(["redesign", "existing", "satellite"]);
   const [isPlanCycling, setIsPlanCycling] = useState(false);
   const [activeRenderId, setActiveRenderId] = useState(null);
@@ -218,6 +220,27 @@ export function App() {
   const nextPlan = planViews[planOrder[1]];
   const activeLegend = planLegendSets[planOrder[0]];
   const activeRender = renderGallery.find((render) => render.id === activeRenderId) ?? renderOverview;
+
+  useEffect(() => {
+    let cancelled = false;
+    const sources = [...new Set([...document.images].map((image) => image.currentSrc || image.src).filter(Boolean))];
+    if (!sources.length) { setPageLoadProgress(100); setPageLoading(false); return undefined; }
+    let completed = 0;
+    const finishOne = () => {
+      completed += 1;
+      if (cancelled) return;
+      setPageLoadProgress(Math.round((completed / sources.length) * 100));
+      if (completed === sources.length) window.setTimeout(() => !cancelled && setPageLoading(false), 320);
+    };
+    sources.forEach((src) => {
+      const image = new Image();
+      let settled = false;
+      const settle = () => { if (settled) return; settled = true; finishOne(); };
+      image.onload = settle; image.onerror = settle; image.src = src;
+      if (image.complete) settle();
+    });
+    return () => { cancelled = true; };
+  }, []);
 
   const cyclePlan = () => {
     if (isPlanCycling || planOrder.length < 2) return;
@@ -414,6 +437,15 @@ export function App() {
 
   return (
     <main className="site-shell">
+      <div className={`page-loader${pageLoading ? " is-visible" : " is-complete"}`} aria-live="polite" aria-busy={pageLoading}>
+        <div className="page-loader__backdrop" />
+        <div className="page-loader__content">
+          <p className="page-loader__eyebrow">TOBEY XIAO / PORTFOLIO</p>
+          <p className="page-loader__message">首次加载，请稍候</p>
+          <div className="page-loader__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={pageLoadProgress}><span style={{ width: `${pageLoadProgress}%` }} /></div>
+          <p className="page-loader__percent">{pageLoadProgress}%</p>
+        </div>
+      </div>
       <section className="content" id="top" inert={exploring}>
         <header className="topbar">
           <a className="wordmark" href="#top">TOBEY XIAO</a>
