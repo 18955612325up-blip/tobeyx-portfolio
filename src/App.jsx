@@ -280,7 +280,8 @@ export function App() {
   }, [exploring, isClosingExplorer]);
   useEffect(() => {
     const sections = [...document.querySelectorAll(".reveal-on-scroll")];
-    if (!sections.length) return undefined;
+    const tiles = [...document.querySelectorAll(".culture-tile, .render-tile")];
+    if (!sections.length && !tiles.length) return undefined;
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -290,6 +291,7 @@ export function App() {
       });
     }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
     sections.forEach((section) => observer.observe(section));
+    tiles.forEach((tile) => observer.observe(tile));
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
@@ -582,9 +584,9 @@ export function App() {
           <div className="culture-layout">
             <div className="culture-grid" aria-label="文化原型与景观构件转译">
               <figure className="culture-tile culture-tile--human-source"><img loading="lazy" decoding="async" src="/images/shangdu/source-human-ding.jpg" alt="人面鼎实物参考" /><figcaption>原型 / 人面鼎</figcaption></figure>
-              <figure className="culture-tile culture-tile--human-model culture-tile--model"><img loading="lazy" decoding="async" src="/images/shangdu/culture-human-ding.png" alt="提取人面鼎形态形成的构件模型" /><figcaption>提取 / 体量与支撑</figcaption></figure>
+              <figure className="culture-tile culture-tile--human-model culture-tile--model"><img loading="lazy" decoding="async" src="/images/shangdu/culture-human-ding.png" alt="提取人面鼎形态形成的景观雕塑模型" /><figcaption>提取 / 景观雕塑元素</figcaption></figure>
               <figure className="culture-tile culture-tile--sheep-source"><img loading="lazy" decoding="async" src="/images/shangdu/source-sheep-zun.jpg" alt="四羊方尊实物参考" /><figcaption>原型 / 四羊方尊</figcaption></figure>
-              <figure className="culture-tile culture-tile--sheep-model culture-tile--model"><img loading="lazy" decoding="async" src="/images/shangdu/culture-sheep-zun.png" alt="提取四羊方尊形态形成的构件模型" /><figcaption>提取 / 转角与围合</figcaption></figure>
+              <figure className="culture-tile culture-tile--sheep-model culture-tile--model"><img loading="lazy" decoding="async" src="/images/shangdu/culture-sheep-zun.png" alt="提取四羊方尊形态形成的景观雕塑模型" /><figcaption>提取 / 景观雕塑元素</figcaption></figure>
               <figure className="culture-tile culture-tile--attire-source"><img loading="lazy" decoding="async" src="/images/shangdu/source-shang-attire.webp" alt="商代服饰人物参考" /><figcaption>参考 / 商代服饰</figcaption></figure>
               <figure className="culture-tile culture-tile--ox culture-tile--model"><img loading="lazy" decoding="async" src="/images/shangdu/culture-ox.png" alt="小牛与农耕场景模型" /><figcaption>转译 / 田景互动</figcaption></figure>
               <figure className="culture-tile culture-tile--carry culture-tile--model"><img loading="lazy" decoding="async" src="/images/shangdu/culture-carry.png" alt="挑扁担人物场景模型" /><figcaption>转译 / 劳动记忆</figcaption></figure>
