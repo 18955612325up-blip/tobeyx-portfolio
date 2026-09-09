@@ -199,6 +199,7 @@ export function App() {
   const [planOrder, setPlanOrder] = useState(["redesign", "existing", "satellite"]);
   const [isPlanCycling, setIsPlanCycling] = useState(false);
   const [activeRenderId, setActiveRenderId] = useState(null);
+  const [revealedRenderIds, setRevealedRenderIds] = useState(() => new Set());
   const [exploring, setExploring] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
   const showCalibration = false;
@@ -285,7 +286,10 @@ export function App() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-revealed");
+          if (entry.target.classList.contains("render-tile")) {
+            const renderId = [...entry.target.classList].find((name) => name.startsWith("render-tile--"))?.replace("render-tile--", "");
+            if (renderId) setRevealedRenderIds((current) => new Set(current).add(renderId));
+          } else entry.target.classList.add("is-revealed");
           observer.unobserve(entry.target);
         }
       });
@@ -614,12 +618,12 @@ export function App() {
           <div className="render-studies-layout">
             <div className="render-grid" aria-label="郑州商城遗址公园空间效果图拼接">
               {renderGallery.map((render) => <button
-                className={`render-tile render-tile--${render.id}${activeRenderId === render.id ? " is-active" : ""}`}
+                className={`render-tile render-tile--${render.id}${activeRenderId === render.id ? " is-active" : ""}${revealedRenderIds.has(render.id) ? " is-revealed" : ""}`}
                 type="button"
                 key={render.id}
                 aria-label={`查看${render.title}介绍`}
                 aria-pressed={activeRenderId === render.id}
-                onMouseEnter={() => setActiveRenderId(render.id)}
+                onMouseEnter={() => { setRevealedRenderIds((current) => new Set(current).add(render.id)); setActiveRenderId(render.id); }}
                 onMouseLeave={() => setActiveRenderId(null)}
                 onFocus={() => setActiveRenderId(render.id)}
                 onBlur={() => setActiveRenderId(null)}
