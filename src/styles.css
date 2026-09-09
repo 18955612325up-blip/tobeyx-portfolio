@@ -209,6 +209,7 @@ footer { display:flex; justify-content:space-between; gap:30px; padding:43px 0; 
 @media (prefers-reduced-motion:reduce) { .cultural-translation .culture-tile,.cultural-translation.is-revealed .culture-tile { opacity:1; transform:none; animation:none; } }
 .render-studies .render-tile { opacity:0; transform:translateY(22px); }
 .render-studies .render-tile.is-revealed { animation:renderTileReveal 1.15s cubic-bezier(.2,.72,.18,1) forwards; }
+.render-studies .render-tile:hover,.render-studies .render-tile:focus-visible { opacity:1; transform:translateY(0); }
 .render-studies .render-tile:nth-child(1) { animation-delay:.05s; }
 .render-studies .render-tile:nth-child(2) { animation-delay:.40s; }
 .render-studies .render-tile:nth-child(3) { animation-delay:.75s; }
