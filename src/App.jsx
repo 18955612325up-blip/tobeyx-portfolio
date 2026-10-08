@@ -651,8 +651,8 @@ export function App() {
 
         <footer id="about">
           <p>以考古式阅读场地，让历史遗存、生态廊道与日常公共生活在当代城市中重新相遇。</p>
-          <div className="footer-meta"><span>Landscape Architecture Student</span><span>Seeking internship opportunities</span><a href="mailto:18955612325up@gmail.com">18955612325up@gmail.com</a><span>© 2026 Tobey Xiao</span><a className="icp-filing" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">皖ICP备2026030099号</a></div>
-          <a className="public-security-filing" href="https://beian.mps.gov.cn/#/query/webSearch?code=34080302666725" target="_blank" rel="noopener noreferrer"><img src="/beian-police.png" alt="" width="20" height="20" /><span>皖公网安备34080302666725号</span></a>
+          <div className="footer-meta"><span>Landscape Architecture Student</span><span>Seeking internship opportunities</span><a href="mailto:18955612325up@gmail.com">18955612325up@gmail.com</a><span>© 2026 Tobey Xiao</span><a className="icp-filing" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">皖ICP备2026030099号</a>
+          <a className="public-security-filing" href="https://beian.mps.gov.cn/#/query/webSearch?code=34080302666725" target="_blank" rel="noopener noreferrer"><img src="/beian-police.png" alt="" width="20" height="20" /><span>皖公网安备34080302666725号</span></a></div>
         </footer>
       </section>
 

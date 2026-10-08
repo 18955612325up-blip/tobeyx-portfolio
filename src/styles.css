@@ -620,7 +620,7 @@ footer > p { max-width:520px; }
 .footer-meta .icp-filing { color:#52656f; font-weight:500; letter-spacing:0; line-height:1.8; }
 .footer-meta .icp-filing:hover { color:var(--ink); text-decoration:underline; }
 .footer-meta .icp-filing:focus-visible { outline:2px solid currentColor; outline-offset:4px; }
-footer .public-security-filing { grid-column:1 / -1; justify-self:center; display:inline-flex; align-items:center; gap:6px; color:#52656f; font-size:12px; font-weight:500; letter-spacing:0; line-height:1.8; white-space:nowrap; }
+.footer-meta .public-security-filing { justify-self:end; display:inline-flex; align-items:center; gap:6px; color:#52656f; font-size:11px; font-weight:500; letter-spacing:0; line-height:1.8; white-space:nowrap; }
 .public-security-filing img { display:block; width:20px; height:20px; object-fit:contain; }
 footer .public-security-filing:hover { color:var(--ink); text-decoration:underline; }
 footer .public-security-filing:focus-visible { outline:2px solid currentColor; outline-offset:4px; }
@@ -630,6 +630,7 @@ footer .public-security-filing:focus-visible { outline:2px solid currentColor; o
   .topbar-meta { justify-content:flex-start; text-align:left; }
   footer { grid-template-columns:1fr; gap:24px; }
   .footer-meta { text-align:left; }
+  .footer-meta .public-security-filing { justify-self:start; }
 }
 
 /* Cultural sources are shown as evidence, then condensed into spatial language. */
