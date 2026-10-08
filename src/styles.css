@@ -613,7 +613,7 @@ footer { font-size:21px; font-weight:700; }
 .topbar-person { color:#52656f; font-weight:700; letter-spacing:.06em; }
 .topbar-role { color:#71828a; white-space:nowrap; }
 .topbar-project-type { margin-left:clamp(18px,2vw,30px)!important; padding-left:clamp(18px,2vw,30px); border-left:1px solid rgba(100,132,140,.32); color:#7a8b92; white-space:nowrap; }
-footer { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; }
+footer { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end; padding-bottom:max(120px, calc(env(safe-area-inset-bottom) + 110px)); }
 footer > p { max-width:520px; }
 .footer-meta { display:grid; gap:6px; color:#657780; font-size:11px; font-weight:500; letter-spacing:.08em; text-align:right; }
 .footer-meta a { color:#a5492d; font-weight:700; }
